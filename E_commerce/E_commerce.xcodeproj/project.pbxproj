@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		91210E6324E849F400635E17 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91210E6224E849F400635E17 /* AppDelegate.swift */; };
-		91210E6524E849F400635E17 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91210E6424E849F400635E17 /* SceneDelegate.swift */; };
 		91210E6A24E849F400635E17 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91210E6824E849F400635E17 /* Main.storyboard */; };
 		91210E6D24E849F400635E17 /* E_commerce.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 91210E6B24E849F400635E17 /* E_commerce.xcdatamodeld */; };
 		91210E6F24E849F600635E17 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91210E6E24E849F600635E17 /* Assets.xcassets */; };
@@ -42,6 +41,7 @@
 		91210ECD24E962E600635E17 /* ProductDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91210ECB24E962E600635E17 /* ProductDetailTableViewCell.xib */; };
 		91210ED124E96B2200635E17 /* ProductSortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91210ED024E96B2100635E17 /* ProductSortViewController.swift */; };
 		91210ED324E97DA400635E17 /* ProductSortViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91210ED224E97DA300635E17 /* ProductSortViewModel.swift */; };
+		91210ED524EA30B800635E17 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91210ED424EA30B700635E17 /* SceneDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,7 +64,6 @@
 /* Begin PBXFileReference section */
 		91210E5F24E849F400635E17 /* E_commerce.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = E_commerce.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		91210E6224E849F400635E17 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		91210E6424E849F400635E17 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		91210E6924E849F400635E17 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		91210E6C24E849F400635E17 /* E_commerce.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = E_commerce.xcdatamodel; sourceTree = "<group>"; };
 		91210E6E24E849F600635E17 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -103,6 +102,7 @@
 		91210ECB24E962E600635E17 /* ProductDetailTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductDetailTableViewCell.xib; sourceTree = "<group>"; };
 		91210ED024E96B2100635E17 /* ProductSortViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductSortViewController.swift; sourceTree = "<group>"; };
 		91210ED224E97DA300635E17 /* ProductSortViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductSortViewModel.swift; sourceTree = "<group>"; };
+		91210ED424EA30B700635E17 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,12 +167,12 @@
 		91210E6124E849F400635E17 /* E_commerce */ = {
 			isa = PBXGroup;
 			children = (
+				91210ED424EA30B700635E17 /* SceneDelegate.swift */,
 				91210ECF24E9699E00635E17 /* Network Manager */,
 				91210ECE24E9698000635E17 /* ViewModel */,
 				91210EB824E913FF00635E17 /* View */,
 				91210E9524E84A4800635E17 /* Model */,
 				91210E6224E849F400635E17 /* AppDelegate.swift */,
-				91210E6424E849F400635E17 /* SceneDelegate.swift */,
 				91210E6E24E849F600635E17 /* Assets.xcassets */,
 				91210E7024E849F600635E17 /* LaunchScreen.storyboard */,
 				91210E7324E849F600635E17 /* Info.plist */,
@@ -397,6 +397,7 @@
 				91210EB024E84D2E00635E17 /* ProductEntity+CoreDataClass.swift in Sources */,
 				91210E6D24E849F400635E17 /* E_commerce.xcdatamodeld in Sources */,
 				91210ED324E97DA400635E17 /* ProductSortViewModel.swift in Sources */,
+				91210ED524EA30B800635E17 /* SceneDelegate.swift in Sources */,
 				91210EB724E84D2E00635E17 /* CategoryEntity+CoreDataProperties.swift in Sources */,
 				91210ECC24E962E600635E17 /* ProductDetailTableViewCell.swift in Sources */,
 				91210EC524E930D700635E17 /* ProductViewModel.swift in Sources */,
@@ -409,7 +410,6 @@
 				91210EAD24E84D2E00635E17 /* ProductRankingEntity+CoreDataProperties.swift in Sources */,
 				91210EC724E940BF00635E17 /* ProductDetailViewController.swift in Sources */,
 				91210E9B24E84AAA00635E17 /* CoreDataManager.swift in Sources */,
-				91210E6524E849F400635E17 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -585,6 +585,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9P9ALXJ59S;
 				INFOPLIST_FILE = E_commerce/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -603,6 +604,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9P9ALXJ59S;
 				INFOPLIST_FILE = E_commerce/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

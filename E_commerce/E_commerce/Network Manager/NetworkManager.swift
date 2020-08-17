@@ -20,14 +20,20 @@ class NetworkManager {
                     //let json = try? JSONSerialization.jsonObject(with: data, options: [])
                     //print("✅ json: \n\(json)")
                     let objectResponse = try JSONDecoder().decode(ProductData.self, from: data)
-                    onCompletion(objectResponse)
+                    DispatchQueue.main.async {
+                        onCompletion(objectResponse)
+                    }
                 }
                 else{
-                   onCompletion(nil)
+                    DispatchQueue.main.async {
+                        onCompletion(nil)
+                    }
                 }
             }
             catch{
-               onCompletion(nil)
+                DispatchQueue.main.async {
+                    onCompletion(nil)
+                }
             }
         })
         task.resume()

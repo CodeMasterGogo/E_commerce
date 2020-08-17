@@ -29,7 +29,12 @@ class ProductViewController: UIViewController {
                     if let data = data{
                         CoreDataManager.shared().prepare(dataForSaving: data)
                     }
-                    self.setupView()
+                    if let productEntity = CoreDataManager.shared().fetchRequest(entityName: "ProductDataEntity") as? [ProductDataEntity]{
+                        if (productEntity.count) > 0{
+                            self.product = productEntity
+                            self.setupView()
+                        }
+                    }
                 }
             }
         }
@@ -39,7 +44,12 @@ class ProductViewController: UIViewController {
                 if let data = data{
                     CoreDataManager.shared().prepare(dataForSaving: data)
                 }
-                self.setupView()
+                if let productEntity = CoreDataManager.shared().fetchRequest(entityName: "ProductDataEntity") as? [ProductDataEntity]{
+                    if (productEntity.count) > 0{
+                        self.product = productEntity
+                        self.setupView()
+                    }
+                }
             }
         }
     }
@@ -54,7 +64,7 @@ class ProductViewController: UIViewController {
     }
     
     @IBAction func sortBtnPressed(_ sender: Any) {
-        let vc = self.storyboard?.instantiateViewController(identifier: "ProductSortViewID") as? ProductSortViewController
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "ProductSortViewID") as? ProductSortViewController
         vc?.delegate = self
         vc?.viewModel = viewModel?.getSortViewModel()
         present(vc!, animated: true, completion: nil)
@@ -84,7 +94,7 @@ extension ProductViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vm = self.storyboard?.instantiateViewController(identifier: "productDetailViewID") as? ProductDetailViewController
+        let vm = self.storyboard?.instantiateViewController(withIdentifier: "productDetailViewID") as? ProductDetailViewController
         vm?.viewModel = viewModel?.getProductDetailViewModel(section: indexPath.section, index: indexPath.row)
         self.navigationController?.pushViewController(vm!, animated: true)
     }
