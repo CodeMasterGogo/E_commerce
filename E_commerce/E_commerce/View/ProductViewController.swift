@@ -80,7 +80,7 @@ extension ProductViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return viewModel?.getCategoryViewModel(index: section).title ?? ""
+        return viewModel?.categoryTitle(index: section) ?? ""
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -91,9 +91,14 @@ extension ProductViewController: UITableViewDelegate, UITableViewDataSource{
 }
 
 extension ProductViewController: SortProductProtocol{
-    func updateView() {
-      
+    func updateView(productRankingEntity: RankingViewModel?) {
+        guard let vm = productRankingEntity else {return}
+        viewModel?.getSortedProductData(productRankingVM: vm)
+        tableView.reloadData()
     }
     
-    
+    func removerSortFilter() {
+        viewModel?.removesortfilter()
+        tableView.reloadData()
+    }
 }

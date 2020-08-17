@@ -9,7 +9,8 @@
 import UIKit
 
 protocol SortProductProtocol{
-    func updateView(rankings: [ProductRankingEntity]?)
+    func updateView(productRankingEntity: RankingViewModel?)
+    func removerSortFilter()
 }
 
 class ProductSortViewController: UIViewController {
@@ -39,7 +40,12 @@ extension ProductSortViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "productCellID") as? ProductTableViewCell
-        cell?.setupRankingView(vm: viewModel?.getRankingViewModel(index: indexPath.row))
+        if indexPath.row == ((viewModel?.rankingCount ?? 0) - 1){
+            cell?.productTitle.text = "Show All Product"
+        }
+        else{
+            cell?.setupRankingView(vm: viewModel?.getRankingViewModel(index: indexPath.row))
+        }
         return cell!
     }
     
@@ -48,6 +54,12 @@ extension ProductSortViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        delegate?.updateView(viewModel?.getRankingViewModel(index: indexPath.row))
+        if indexPath.row == ((viewModel?.rankingCount ?? 0) - 1){
+           delegate?.removerSortFilter()
+        }
+        else{
+           delegate?.updateView(productRankingEntity: viewModel?.getRankingViewModel(index: indexPath.row))
+        }
+        dismiss(animated: true, completion: nil)
     }
 }

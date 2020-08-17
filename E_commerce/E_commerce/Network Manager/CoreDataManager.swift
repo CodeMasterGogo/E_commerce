@@ -291,5 +291,40 @@ class CoreDataManager: NSObject{
             print(fetchError)
         }
     }
+    
+    func fetchProductWith(id: Int64) -> Any?{
+
+//        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+//
+//        do {
+//            let fetchRequest = NSFetchRequest<NSFetchRequestResult>()
+//            fetchRequest.predicate = NSPredicate(format: "uniqueId == %@", contactIdentifier)
+//            let fetchedResults = try context.fetch(fetchRequest) as! [Contact]
+//            if let aContact = fetchedResults.first {
+//               providerName.text = aContact.providerName
+//            }
+//        }
+//        catch {
+//            print ("fetch task failed", error)
+//        }
+        
+        // Initialize Fetch Request
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>()
+         
+        // Create Entity Description
+        let entityDescription = NSEntityDescription.entity(forEntityName: "ProductEntity", in: self.managedObjectContext)
+        // Configure Fetch Request
+        fetchRequest.entity = entityDescription
+        fetchRequest.predicate = NSPredicate(format: "id == %d", id)
+        do {
+            let result = try self.managedObjectContext.fetch(fetchRequest)
+            return result.first
+        } catch {
+            let fetchError = error as NSError
+            print(fetchError)
+            return nil
+        }
+
+    }
 
 }

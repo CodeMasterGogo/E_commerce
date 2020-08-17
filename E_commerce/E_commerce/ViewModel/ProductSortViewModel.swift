@@ -16,7 +16,7 @@ struct ProductSortViewModel {
     }
     
     var rankingCount: Int{
-        return rankings?.count ?? 0
+        return ((rankings?.count ?? 0) + 1)
     }
     
     func getRankingViewModel(index: Int) -> RankingViewModel{

@@ -18,6 +18,7 @@ class ProductDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UINib.init(nibName: "ProductDetailTableViewCell", bundle: nil), forCellReuseIdentifier: "productDetailCellID")
+        self.navigationItem.title = "Product Detail"
         productTitle.text = viewModel?.title ?? ""
         tableView.reloadData()
     }
