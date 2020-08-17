@@ -76,41 +76,57 @@ class CoreDataManager: NSObject{
     
     func prepare(dataForSaving: ProductData){
         let productDataEntity = ProductDataEntity(context: self.managedObjectContext)
-        //let obj = dataForSaving.categories.map{self.createCategoryEntityFrom(category: $0)}
-        
-        guard let categories = dataForSaving.categories, let rankings = dataForSaving.rankings else {
-            return
-        }
-        for category in categories{
-            if let obj = self.createCategoryEntityFrom(category: category){
-                productDataEntity.categories?.adding(obj)
-            }
-        }
-        
-        for ranking in rankings{
-            if let obj = self.createRankingEntityFrom(ranking: ranking)
-            {
-                productDataEntity.ranking?.adding(obj)
-            }
-        }
+        productDataEntity.categories = self.createCategoryEntityFrom(categories: dataForSaving.categories)
+        productDataEntity.ranking = self.createCategoryEntityFrom(rankings: dataForSaving.rankings)
         saveData()
     }
     
+    private func createCategoryEntityFrom(categories: [ProductCategory]?) -> NSSet?{
+        var categoryEntityArr: [CategoryEntity] = []
+        if let categories = categories{
+            for category in categories{
+                       if let obj = self.createCategoryEntityFrom(category: category){
+                           categoryEntityArr.append(obj)
+                       }
+                   }
+        }
+        return NSSet.init(array: categoryEntityArr)
+    }
+    
+    private func createCategoryEntityFrom(rankings: [ProductRanking]?) -> NSSet?{
+        var rankingEntityArr: [RankingEntity] = []
+        if let rankings = rankings{
+            for ranking in rankings{
+                if let obj = self.createRankingEntityFrom(ranking: ranking)
+                {
+                    rankingEntityArr.append(obj)
+                }
+            }
+        }
+        return NSSet.init(array: rankingEntityArr)
+    }
+
     private func createRankingEntityFrom(ranking: ProductRanking?) -> RankingEntity?{
         guard let ranking = ranking else {
             return nil
         }
         let rankingEntity = RankingEntity(context: self.managedObjectContext)
         rankingEntity.rankingType = ranking.ranking
-        if let products = ranking.products {
-            for ranking in products{
-                if let obj = self.createProductRankingEntityFrom(productRanking: ranking)
-                {
-                    rankingEntity.rankingArr?.adding(obj)
-                }
-            }
-        }
+        rankingEntity.rankingArr = self.createProductRankingEntityFrom(productRanking: ranking.products)
         return rankingEntity
+    }
+    
+    private func createProductRankingEntityFrom(productRanking: [Ranking]?) -> NSSet?{
+        var productRankingEntityArr: [ProductRankingEntity] = []
+        if let products = productRanking {
+           for ranking in products{
+               if let obj = self.createProductRankingEntityFrom(productRanking: ranking)
+               {
+                   productRankingEntityArr.append(obj)
+               }
+           }
+        }
+        return NSSet.init(array: productRankingEntityArr)
     }
     
     private func createProductRankingEntityFrom(productRanking: Ranking?) -> ProductRankingEntity?{
@@ -133,17 +149,23 @@ class CoreDataManager: NSObject{
         let categoryEntity = CategoryEntity(context: self.managedObjectContext)
         categoryEntity.id = category.id
         categoryEntity.name = category.name
-        if let products = category.products{
-            for product in products{
-                if let obj = self.createProductEntityFrom(product: product)
-                {
-                    categoryEntity.products?.adding(obj)
-                }
-            }
-        }
+        categoryEntity.products = self.createProductEntityFrom(products: category.products)
         return categoryEntity
     }
     
+    private func createProductEntityFrom(products: [Product]?) -> NSSet?{
+        var productEntitryArr: [ProductEntity] = []
+        if let products = products{
+            for product in products{
+                if let obj = self.createProductEntityFrom(product: product)
+                {
+                    productEntitryArr.append(obj)
+                }
+            }
+        }
+        return NSSet.init(array: productEntitryArr)
+    }
+
     private func createProductEntityFrom(product: Product?) -> ProductEntity?{
         guard let product = product else {
             return nil
@@ -153,17 +175,24 @@ class CoreDataManager: NSObject{
         productEntity.name = product.name
         productEntity.dateAdded = product.dateAdded
         productEntity.tax = self.createTaxEntityFrom(tax: product.tax)
-        if let variants = product.variants {
-            for variant in variants{
-                if let obj = self.createVarientEntityFrom(varient: variant)
-                {
-                    productEntity.varients?.adding(obj)
-                }
-            }
-        }
+        productEntity.varients = self.createVarientEntityFrom(varients: product.variants)
         return productEntity
     }
     
+    
+    private func createVarientEntityFrom(varients: [Varient]?) -> NSSet?{
+        var variaentArry: [VarientEntity] = []
+         if let variants = varients {
+                for variant in variants{
+                    if let obj = self.createVarientEntityFrom(varient: variant)
+                    {
+                        variaentArry.append(obj)
+                    }
+            }
+        }
+        return NSSet.init(array: variaentArry)
+    }
+        
     private func createVarientEntityFrom(varient: Varient?) -> VarientEntity?{
         guard let varient = varient else {
             return nil
@@ -173,7 +202,7 @@ class CoreDataManager: NSObject{
         varientEntity.id = varient.id
         varientEntity.color = varient.color
         varientEntity.size = varient.size
-        
+
         return varientEntity
     }
     
@@ -220,7 +249,7 @@ class CoreDataManager: NSObject{
 //        }
 //    }
     
-    func fetchRequest(entityName: String) -> [ProductDataEntity]?{
+    func fetchRequest(entityName: String) -> [Any]?{
         // Initialize Fetch Request
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>()
          
@@ -231,7 +260,7 @@ class CoreDataManager: NSObject{
         fetchRequest.entity = entityDescription
          
         do {
-            let result = try self.managedObjectContext.fetch(fetchRequest) as? [ProductDataEntity]
+            let result = try self.managedObjectContext.fetch(fetchRequest)
             return result
         } catch {
             let fetchError = error as NSError
